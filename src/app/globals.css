@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f1f3f2;
+  --paper-raised: #ffffff;
+  --paper-sunk: #e7ebe9;
+
+  --ink: #182333;
+  --ink-soft: #5c6b7a;
+  --ink-faint: #97a3ad;
+
+  --line: #dde2e1;
+  --line-strong: #c4cccb;
+
+  --beacon: #d9713a;
+  --beacon-bright: #e8834c;
+  --beacon-soft: rgba(217, 113, 58, 0.1);
+  --beacon-soft-border: rgba(217, 113, 58, 0.32);
+
+  --grid-soft: rgba(76, 110, 156, 0.12);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-paper-sunk: var(--paper-sunk);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-beacon: var(--beacon);
+  --color-beacon-bright: var(--beacon-bright);
+  --color-beacon-soft: var(--beacon-soft);
+  --font-sans: var(--font-hanken);
+  --font-display: var(--font-zilla);
+  --font-mono: var(--font-space-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+}
+
+/* Faint surveyor's grid, like a light table under a drafted page.
+   Lives on a ::before, not the section itself — mask-image masks an
+   element's whole paint (content included), not just its background. */
+.grid-field {
+  position: relative;
+}
+
+.grid-field::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--grid-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-soft) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 65% 55% at 72% 25%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 55% at 72% 25%, black 30%, transparent 100%);
+}
+
+.beacon-pulse {
+  animation: beacon-pulse 4.5s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+@keyframes beacon-pulse {
+  from {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+/* Scroll-reveal: toggled by the Reveal component via IntersectionObserver. */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beacon-pulse {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
