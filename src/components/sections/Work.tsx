@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
 
 const PROJECTS = [
@@ -7,6 +8,7 @@ const PROJECTS = [
     description:
       "Contractor, workforce, and site-safety compliance dashboard built for South African mining and construction — document tracking, certifications, and incident logs in one place.",
     status: "In development",
+    link: "https://complience-pro.vercel.app/",
   },
   {
     name: "POPIAGuard",
@@ -14,6 +16,7 @@ const PROJECTS = [
     description:
       "POPIA compliance tracker for businesses and the consultancies managing it on their behalf — processing records, third-party operator agreements, and breach logging.",
     status: "In development",
+    link: "https://popia-guard.vercel.app/",
   },
   {
     name: "Stokvela",
@@ -21,13 +24,15 @@ const PROJECTS = [
     description:
       "A treasurer's tool for running a stokvel or burial society — member contributions, payout rotation, and a proper record of who's paid and who hasn't.",
     status: "In development",
+    link: "https://stokvel-frontend.vercel.app/",
   },
   {
-    name: "The Cosmopolitan",
+    name: "Findza",
     tag: "Local Marketplace",
     description:
       "A local business directory and room-booking platform, seeded with real listings across Johannesburg neighbourhoods, built to help local supply get discovered.",
     status: "In development",
+    link: "https://thecosmopolitan.banelengubane.dev/",
   },
 ];
 
@@ -45,7 +50,7 @@ export default function Work() {
         </Reveal>
 
         <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
-          {PROJECTS.map(({ name, tag, description, status }, i) => (
+          {PROJECTS.map(({ name, tag, description, status, link }, i) => (
             <Reveal
               key={name}
               delay={i * 90}
@@ -61,6 +66,15 @@ export default function Work() {
                 {tag}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-ink-soft">{description}</p>
+              <a
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-beacon hover:underline"
+              >
+                View live
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
             </Reveal>
           ))}
         </div>
